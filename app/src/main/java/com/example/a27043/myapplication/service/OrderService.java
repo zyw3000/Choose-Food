@@ -1,17 +1,21 @@
 package com.example.a27043.myapplication.service;
 
+import com.example.a27043.myapplication.entity.Food;
 import com.example.a27043.myapplication.entity.Order;
 import com.example.a27043.myapplication.entity.OrderDetail;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 27043 on 2016-05-11.
  */
 public class OrderService {
     static List<Order> orders = new ArrayList<Order>();
+    FoodService foodService = new FoodService();
 
     static {
         Order o = new Order();
@@ -53,6 +57,43 @@ public class OrderService {
         orders.add(o);
     }
 
+    public  OrderDto getOrder(String code){
+        OrderDto dto = new OrderDto();
+
+        for(Order order : orders)
+            if (order.code.equals(code)) {
+                dto.order = order;
+                break;
+            }
+        if (dto.order == null)
+            return null;
+
+        for (OrderDetail od : dto.order.orderDateils) {
+            Food food = foodService.getFood(od.foodId);
+            Map<String, Object> line = new HashMap<String, Object>();
+            line.put("no", dto.orderedList.size() + 1);
+            line.put("name", food.name);
+            line.put("description", od.description);
+            line.put("num", od.num);
+            line.put("price", food.price);
+            dto.orderedList.add(line);
+            dto.sum += od.num * food.price;
+        }
+        return  dto;
+    }
+
+
+    public void  pay(int orderId){
+
+    }
+
+    public  static class OrderDto{
+        public Order order;
+
+        public int sum;
+
+        public List<Map<String, Object>> orderedList = new ArrayList<Map<String, Object>>();
+    }
     public  void addOrder(Order order){
 
     }

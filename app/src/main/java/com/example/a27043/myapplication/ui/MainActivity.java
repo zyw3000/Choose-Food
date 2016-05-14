@@ -46,7 +46,7 @@ public class MainActivity extends BasicActivity{
                         showActivity(MainActivity.this, OrderActivity.class);
                         break;
                     case 1:
-                        showMessageDialog("结账", R.drawable.info, null);
+                        showActivity(MainActivity.this, PayActivity.class);
                         break;
                     case 2:
                         showMessageDialog("查桌", R.drawable.info, null);

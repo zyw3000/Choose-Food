@@ -64,4 +64,13 @@ public class FoodService {
                 list.add(f);
         return list;
     }
+
+    public Food getFood(int foodId){
+        for ( Food f : foods)
+            if (f.id == foodId)
+                return f;
+        return null;
+    }
+
+
 }
