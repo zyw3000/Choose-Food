@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/codeEdt"
+            android:hint="请输入编号"
+            android:singleLine="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/passwordEdt"
+            android:hint="请输入密码"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="fill_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录"
+                android:drawableLeft="@drawable/key"
+                android:layout_weight="1"
+                android:id="@+id/loginBtn" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:drawableLeft="@drawable/back"
+                android:layout_weight="1"
+                android:id="@+id/cancelBtn" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打电话"
+                android:layout_weight="1"
+                android:id="@+id/phoneBtn" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="百度一下"
+                android:layout_weight="1"
+                android:id="@+id/webBtn" />
+        </LinearLayout>
+    </TableLayout>
+</LinearLayout>
