@@ -16,6 +16,7 @@
         <activity android:name=".ui.OrderActivity">
         </activity>
         <activity android:name=".ui.PayActivity"></activity>
+        <service android:name=".service.UpdateDataService"></service>
     </application>
 
 </manifest>

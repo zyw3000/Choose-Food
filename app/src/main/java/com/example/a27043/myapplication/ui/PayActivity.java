@@ -169,7 +169,7 @@ public class PayActivity extends BasicActivity{
         };
         orderedLtv.setAdapter(sa);
     }
- 
+
     @Override
     protected String getName() {
         return "结账";
