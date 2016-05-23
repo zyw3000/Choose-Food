@@ -1,5 +1,7 @@
 package com.example.a27043.myapplication.service;
 
+import android.content.Context;
+
 import com.example.a27043.myapplication.entity.Food;
 import com.example.a27043.myapplication.entity.Order;
 import com.example.a27043.myapplication.entity.OrderDetail;
@@ -15,7 +17,11 @@ import java.util.Map;
  */
 public class OrderService {
     static List<Order> orders = new ArrayList<Order>();
-    FoodService foodService = new FoodService();
+    FoodService foodService;
+
+    public OrderService(Context context) {
+        foodService = new FoodService(context);
+    }
 
     static {
         Order o = new Order();

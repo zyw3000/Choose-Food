@@ -67,9 +67,10 @@ public class OrderActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order);
-        tableService = new TableService();
-        foodService = new FoodService();
-        orderService = new OrderService();
+
+        tableService = new TableService(this);
+        foodService = new FoodService(this);
+        orderService = new OrderService(this);
 
         addFoodBtn = (Button) findViewById(R.id.addFoodBtn);
         orderBtn = (Button) findViewById(R.id.orderBtn);

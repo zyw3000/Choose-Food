@@ -1,7 +1,12 @@
 package com.example.a27043.myapplication.service;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.a27043.myapplication.entity.Food;
 import com.example.a27043.myapplication.entity.FoodType;
+import com.example.a27043.myapplication.sql.DbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,67 +15,64 @@ import java.util.List;
  * Created by 27043 on 2016-05-11.
  */
 public class FoodService {
-    static List<FoodType> types = new ArrayList<FoodType>();
-    static List<Food> foods = new ArrayList<Food>();
+    DbHelper dbHelper;
 
-    static {
-        FoodType t = new FoodType();
-        t.id = 0;
-        t.name = "全部";
-        types.add(t);
-        t.id = 1;
-        t.name = "热菜";
-        types.add(t);
-        t = new FoodType();
-        t.id = 2;
-        t.name = "凉菜";
-        types.add(t);
-        t = new FoodType();
-        t.id = 3;
-        t.name = "烧烤";
-        types.add(t);
-        t = new FoodType();
-        t.id = 4;
-        t.name = "酒水";
-        types.add(t);
-        t = new FoodType();
-        t.id = 5;
-        t.name = "主食";
-        types.add(t);
-    }
-
-    static {
-        for(int i = 1; i <= 40; i++){
-            Food f = new Food();
-            f.id = i;
-            f.code = "FOOD" + i;
-            f.typeId = i % 5 + 1;
-            f.name = "餐品" + i;
-            f.price = (i % 7 + 1) * 10;
-            foods.add(f);
-        }
+    public FoodService(Context context) {
+        dbHelper = new DbHelper(context);
     }
 
     public List<FoodType> getFoodTypes() {
-        return types;
+        List<FoodType> list = new ArrayList<FoodType>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query("food_type", null, null, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            FoodType t = new FoodType();
+            t.id = cursor.getInt(0);
+            t.name = cursor.getString(1);
+            list.add(t);
+        }
+        cursor.close();
+        db.close();
+        return list;
     }
 
     public List<Food> getFoods(int foodTypeId) {
-        if(foodTypeId == 0)
-            return foods;
         List<Food> list = new ArrayList<Food>();
-        for(Food f : foods)
-            if(f.typeId == foodTypeId)
-                list.add(f);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String where = null;
+        if (foodTypeId != 0)
+            where = "type_id = " + foodTypeId;
+        Cursor cursor = db.query("food", null, where, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            Food t = new Food();
+            t.id = cursor.getInt(0);
+            t.code = cursor.getString(1);
+            t.typeId = cursor.getInt(2);
+            t.name = cursor.getString(3);
+            t.price = cursor.getInt(4);
+            t.description = cursor.getString(5);
+            list.add(t);
+        }
+        cursor.close();
+        db.close();
         return list;
     }
 
     public Food getFood(int foodId){
-        for ( Food f : foods)
-            if (f.id == foodId)
-                return f;
-        return null;
+        Food t = null;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query("food", null, "id = " + foodId, null, null, null, null);
+        if (cursor.moveToFirst() ) {
+            t = new Food();
+            t.id = cursor.getInt(0);
+            t.code = cursor.getString(1);
+            t.typeId = cursor.getInt(2);
+            t.name = cursor.getString(3);
+            t.price = cursor.getInt(4);
+            t.description = cursor.getString(5);
+        }
+        cursor.close();
+        db.close();
+        return t;
     }
-
-
 }

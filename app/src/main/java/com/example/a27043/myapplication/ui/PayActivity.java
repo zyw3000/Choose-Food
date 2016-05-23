@@ -54,7 +54,7 @@ public class PayActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay);
 
-        orderService = new OrderService();
+        orderService = new OrderService(this);
 
         orderCodeEdt = (EditText) findViewById(R.id.orderCodeEdt);
         queryBtn = (Button) findViewById(R.id.queryBtn);

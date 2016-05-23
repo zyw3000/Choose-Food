@@ -92,7 +92,7 @@ public class MainActivity extends BasicActivity{
             }
         };
         registerReceiver(broadcastReceiver, f);
-    }
+    } 
 
     private void updateData() {
         AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
