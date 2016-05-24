@@ -67,7 +67,7 @@ public class MainActivity extends BasicActivity{
                         updateData();
                         break;
                     case 4:
-                        showMessageDialog("设置", R.drawable.info, null);
+                        showActivity(MainActivity.this, ConfigActivity.class);
                         break;
                 }
             }
